@@ -49,22 +49,22 @@ class Dijkstra:
    def __calcular_caminhos(self):
         while True:
             menor_dist = self.__inf
-            prox = - 1
+            prox = -1
             for i in range(self.__n):
-                if self.__solv[i] == True:
-                    for j in range(self.__n):
-                        if not self.__solv[j]:
-                            nova_dist = self.__dist[i] + peso(i, j)
-                            if nova_dist < self.__dist[j]:
-                                self.__dist[j] = nova_dist
-                                self.__prev[j] = i
-                            if self.__dist[j] < menor_dist:
-                                menor_dist = self.__dist[j]
-                                prox = j
+                if self.__solv[i]:
+                    for vizinho, peso in self.__grafo[i]:
+                        if not self.__solv[vizinho]:
+                            nova_dist = self.__dist[i] + peso
+                            if nova_dist < self.__dist[vizinho]:
+                                self.__dist[vizinho] = nova_dist
+                                self.__prev[vizinho] = i
+                            if self.__dist[vizinho] < menor_dist:
+                                menor_dist = self.__dist[vizinho]
+                                prox = vizinho
             if prox == -1:
                 return
             self.__solv[prox] = True
-
+                        
    def menor_caminho(self, destino):
       # Caso em que origem e destino são iguais.
       if destino == self.__origem:
@@ -197,9 +197,9 @@ print(""" Cidades disponíveis:
         11 Mundaú
     """)
 # Define o vértice inicial.
-orig = print(int(input("Escolha a cidade de origem (0 - 11): ")))
+orig = int(input("Escolha a cidade de origem (0 - 11): "))
 # Define o vértice final.
-destf = print(int(input("Escolha a cidade de destino (0 - 11): ")))
+destf = int(input("Escolha a cidade de destino (0 - 11): "))
 # Cria objeto da classe Dijkstra.
 dj = Dijkstra(LA, orig)
 # Exibe vértice inicial.

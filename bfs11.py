@@ -10,11 +10,11 @@ def recomendar_amigos_matriz(matriz_adj, usuario_id):
     for i in range(len(matriz_adj)):
         if matriz_adj[usuario_id][i] == 1: # O usuário i é amigo do usuário
             amigos_diretos.add(i)
-        for amigo in amigos_diretos:
-            for j in range(len(matriz_adj)):
-                if matriz_adj[amigo][j] == 1: # Amigo do amigo
-                    if j != usuario_id and j not in amigos_diretos: # Garante que a recomendação não vai ser o próprio usuário ou um amigo direto
-                        recomendacoes.add(j)
+    for amigo in amigos_diretos:
+        for j in range(len(matriz_adj)):
+            if matriz_adj[amigo][j] == 1: # Amigo do amigo
+                if j != usuario_id and j not in amigos_diretos: # Garante que a recomendação não vai ser o próprio usuário ou um amigo direto
+                    recomendacoes.add(j)
     return list(recomendacoes)
             
 def desenhar_recomendacoes_matriz(matriz_adj, usuario_id, recomendacoes, nomes_usuarios):
@@ -79,7 +79,7 @@ def criar_grafo_exemplo_matriz():
     [0, 1, 0, 0, 1, 1, 0, 0, 0, 1], # 0Ana -> Bruno, Eduarda, Fábio, João.
     [1, 0, 1, 1, 0, 0, 1, 0, 0, 0], # 1Bruno -> Ana, Carla, Daniel, Gabriela.
     [0, 1, 0, 0, 0, 0, 0, 1, 1, 0], # 2Carla -> Bruno, Henrique, Isabela.
-    [0, 1, 0, 0, 1, 0, 1, 0, 0, 0], # 3Daniel -> Bruno, Eduarda, Gabriela.
+    [0, 1, 0, 0, 1, 0, 0, 1, 0, 0], # 3Daniel -> Bruno, Eduarda, Henrique.
     [1, 0, 0, 1, 0, 0, 1, 0, 0, 0], # 4Eduarda -> Ana, Daniel, Gabriela.
     [1, 0, 0, 0, 0, 0, 0, 1, 0, 1], # 5Fabio -> Ana, Henrique, João.
     [0, 1, 0, 0, 1, 0, 0, 0, 1, 0], # 6Gabriela -> Bruno, Eduarda, Isabela.
@@ -94,7 +94,12 @@ nomes_usuarios = ["Ana", "Bruno", "Carla", "Daniel", "Eduarda",
 matriz_adj = criar_grafo_exemplo_matriz() # Cria o grafo exemplo.
 # Solicita ao usuário para escolher um nome da lista.
 print("Usuários disponíveis:", ", ".join(nomes_usuarios))
-nome_usuario = input("Digite o nome do usuário para ver as recomendações: ")
+while(True):
+    nome_usuario = input("Digite o nome do usuário para ver as recomendações: ")
+    if nome_usuario in nomes_usuarios:
+        break
+    else:
+        print("Este usuário não existe!")
 usuario_id = nomes_usuarios.index(nome_usuario) # Obtém o índice do usuário selecionado.
 # Gera e exibe as recomendações de amizade.
 recomendacoes = recomendar_amigos_matriz(matriz_adj, usuario_id)

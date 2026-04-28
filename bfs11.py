@@ -103,5 +103,11 @@ while(True):
 usuario_id = nomes_usuarios.index(nome_usuario) # Obtém o índice do usuário selecionado.
 # Gera e exibe as recomendações de amizade.
 recomendacoes = recomendar_amigos_matriz(matriz_adj, usuario_id)
+print("Recomendações:", end=" ")
+for i in range(len(recomendacoes)):
+    if i == len(recomendacoes) - 1:
+        print(nomes_usuarios[recomendacoes[i]])
+    else:
+        print(nomes_usuarios[recomendacoes[i]], end=", ")
 # Desenha o grafo com as recomendações.
 desenhar_recomendacoes_matriz(matriz_adj, usuario_id, recomendacoes, nomes_usuarios)

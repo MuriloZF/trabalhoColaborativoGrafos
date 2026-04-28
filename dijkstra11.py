@@ -197,9 +197,23 @@ print(""" Cidades disponiveis:
         11 - Mundau
     """)
 # Define o v�rtice inicial.
-orig = int(input("Escolha a cidade de origem (0 - 11): "))
+while True:
+    try:
+        orig = int(input("Escolha a cidade de origem (0 - 11): "))
+        if 0 <= orig <= 11:
+            break
+        print("Numero fora do intervalo!")
+    except ValueError:
+        print("Digite um numero valido!")
 # Define o v�rtice final. 
-destf = int(input("Escolha a cidade de destino (0 - 11): "))
+while True:
+    try:
+        destf = int(input("Escolha a cidade de destino (0 - 11): "))
+        if 0 <= destf <= 11:
+            break
+        print("Numero fora do intervalo!")
+    except ValueError:
+        print("Digite um numero valido!")
 # Cria objeto da classe Dijkstra.
 dj = Dijkstra(LA, orig)
 # Exibe v�rtice inicial.
